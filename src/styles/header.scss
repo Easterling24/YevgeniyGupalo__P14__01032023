@@ -1,0 +1,17 @@
+header{
+    min-height: 8vh;
+	background-color: #21282f;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+}
+
+.header-section-left{
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 6px;
+}
