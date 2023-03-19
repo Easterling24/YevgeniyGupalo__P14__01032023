@@ -1,0 +1,149 @@
+// Confirmation Modal behaviour
+
+.modal-wrapper-closed{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+  visibility: visible;
+  animation: fade-out 300ms both;
+
+  .modal-wrapper-container{
+
+    
+  }
+    
+}
+
+
+
+.modal-wrapper {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+    visibility: visible;
+    animation: fade-in 300ms both;
+  
+  }
+
+
+  .modal-wrapper-container{
+
+    margin: 25% auto;
+    background: #393e46; 
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+    border-radius: 5px;
+    animation: modal-from-left 500ms both;
+
+    & > p {
+
+      color: #fff;
+      font-size: 24px;
+      color:  #f96d00;
+    }
+
+    & > button{
+      margin-top: 1rem;
+      cursor: pointer;
+      outline: none;
+      border: none;
+      font-size: 20px;
+      padding: 8px 15px;
+      
+    }
+
+
+  }
+
+  .modal-wrapper-container-closed{
+    
+    margin: 25% auto;
+    background: #393e46; 
+    display: flex;
+    width: 600px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+    border-radius: 5px;
+    animation: modal-to-right 500ms both;
+
+
+
+
+  }
+
+  @keyframes modal-to-right{
+    from{
+
+      transform: translateX(0px);
+
+    }
+    to{
+      transform: translateX(99999px);
+
+    }
+    
+  }
+
+
+  @keyframes modal-from-left{
+    from{
+
+      transform: translateX(-9999px);
+
+    }
+    to{
+      transform: translateX(0px);
+
+    }
+    
+  }
+
+  @keyframes modal-to-right{
+    from{
+
+      transform: translateX(0px);
+
+    }
+    to{
+      transform: translateX(9999px);
+
+    }
+    
+  }
+
+  @keyframes fade-in {
+    from{
+      visibility: hidden;
+
+    }
+    to{
+      visibility: visible;
+
+    }
+    
+  }
+  @keyframes fade-out {
+    from{
+      visibility: visible;
+
+    }
+    to{
+      visibility: hidden;
+
+    }
+    
+  }

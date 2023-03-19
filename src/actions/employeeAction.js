@@ -1,40 +1,59 @@
 import {
-    ADD_NEW_EMPLOYEE_FAIL,
-    ADD_NEW_EMPLOYEE_SUCCESS,
-    ADD_NEW_EMPLOYEE_PENDING,
+  ADD_NEW_EMPLOYEE_FAIL,
+  ADD_NEW_EMPLOYEE_SUCCESS,
+  ADD_NEW_EMPLOYEE_PENDING,
+  SEARCH_EMPLOYEE_PENDING,
+  SEARCH_EMPLOYEE_SUCCESS,
+  SEARCH_EMPLOYEE_FAIL,
 } from "../constants/employeeConstants";
 
 export const addNewEmployee = (employeeData) => (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ADD_NEW_EMPLOYEE_PENDING,
+    });
 
-    try {
-        dispatch({
-            type: ADD_NEW_EMPLOYEE_PENDING,
-        });
+    const data = employeeData;
 
-        const data = employeeData;
+    dispatch({
+      type: ADD_NEW_EMPLOYEE_SUCCESS,
+      payload: {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        dob: data.dob,
+        startDate: data.startDate,
+        street: data.street,
+        city: data.city,
+        state: data.state,
+        department: data.department,
+        zipCode: data.zipCode,
+      },
+    });
 
+    localStorage.setItem(
+      "employees",
+      JSON.stringify(getState().employee.employees)
+    );
+  } catch (error) {
+    dispatch({
+      type: ADD_NEW_EMPLOYEE_FAIL,
+      payload: error,
+    });
+  }
+};
 
-        dispatch({
-            type: ADD_NEW_EMPLOYEE_SUCCESS,
-            payload: {
-                firstName: data.firstName,
-                lastName: data.lastName,
-                dob: data.dob,
-                startDate: data.startDate,
-                street: data.street,
-                city: data.city,
-                state: data.state,
-                department: data.department
-            }
-        });
+export const searchEmployee = (query) => (dispatch) => {
 
+    dispatch({
+      type: SEARCH_EMPLOYEE_PENDING,
+    });
 
+    dispatch({
+      type: SEARCH_EMPLOYEE_SUCCESS,
+      payload: {
+        query
 
-        localStorage.setItem("employees", JSON.stringify(getState().employee.employees));
-    } catch (error) {
-        dispatch({
-            type: ADD_NEW_EMPLOYEE_FAIL,
-            payload: error,
-        });
-    }
+      }
+    });
+
 };
