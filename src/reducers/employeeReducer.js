@@ -7,15 +7,13 @@ import {
 } from "../constants/employeeConstants";
 
 const initialState = {
-  employees: localStorage.getItem("employees")
-    ? JSON.parse(localStorage.getItem("employees"))
-    : [],
-    value :"",
+  employees: localStorage.getItem("employees") ? JSON.parse(localStorage.getItem("employees")): [],
+  value: "",
   filteredEmployees: [],
+  entries: 5,
   setLoading: false,
   error: false,
 };
-
 
 export default function employeeReducer(state = initialState, action) {
   const { type, payload } = action;
@@ -46,19 +44,19 @@ export default function employeeReducer(state = initialState, action) {
       };
 
     case SEARCH_EMPLOYEE_SUCCESS:
-
       let value = payload.query;
 
       const filteredEmployees = state.employees.filter((employee) =>
         employee.firstName.toLowerCase().includes(value.toLowerCase())
-      )
+      );
+      
 
       return {
-        ...state, 
-        value, 
+        ...state,
+        value,
         filteredEmployees,
-        setLoading:false
-      }
+        setLoading: false,
+      };
 
     default:
       return state;

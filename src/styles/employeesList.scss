@@ -1,7 +1,6 @@
 .employee-list-wrapper {
   margin: 2% auto;
   width: 1100px;
-  height: 600px;
   text-align: center;
   position: relative;
 
@@ -15,10 +14,11 @@
     color: #fff;
     font-size: 35px;
   }
+
+  &--top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
-.top-wrapper{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}

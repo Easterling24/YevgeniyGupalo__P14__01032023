@@ -1,0 +1,36 @@
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  &--pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &--page_number {
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: #ff9b24;
+    height: 25px;
+    width: 25px;
+    background-color: #2e333b;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  button{
+
+    background-color: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    & > svg{
+        font-size: 25px;
+    }
+  }
+}
