@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { paginateData } from "../reducers/employeeReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleChevronRight,
@@ -8,32 +9,14 @@ import {
 import "../styles/pagination.scss";
 
 export default function Pagination() {
-  const { employees, filteredEmployees, entries } = useSelector(
+  const dispatch = useDispatch();
+  const { employees, filteredEmployees, entries, numberOfPages } = useSelector(
     (state) => state.employee
   );
 
-  const [employeesList, setEmployeesList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [entriesByPage] = useState(3);
-
-  useEffect(() => {
-    setEmployeesList(filteredEmployees.length ? filteredEmployees : employees);
-  }, [employees, filteredEmployees]);
-
-  const lastIndex = currentPage * entriesByPage;
-  const firstIndex = lastIndex - entriesByPage;
-  const currentEntries = employeesList.slice(firstIndex, lastIndex);
-
-  const pageNumbers = [];
-
-  for (let i = 1; i <= Math.ceil(employeesList.length / entriesByPage); i++) {
-    pageNumbers.push(i);
-  }
-
-const paginate = (pageNumber) => {
-  setCurrentPage(pageNumber)
-}
-
+  const paginate = (pageNumber) => {
+    dispatch(paginateData(pageNumber));
+  };
 
   return (
     <section className="pagination-container">
@@ -43,11 +26,11 @@ const paginate = (pageNumber) => {
 
       <div>
         <ul className="pagination-container pagination-container--pagination">
-          {pageNumbers.map((number) => {
+          {numberOfPages.map((number) => {
             return (
               <li
                 key={number}
-                onClick= {() => paginate(number)}
+                onClick={() => paginate(number)}
                 className={
                   "pagination-container pagination-container--page_number"
                 }

@@ -1,5 +1,5 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import employeeReducer from './reducers/employeeReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import {employeeReducer} from './reducers/employeeReducer';
 
 
 

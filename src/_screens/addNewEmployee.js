@@ -1,16 +1,14 @@
 import "../styles/addNewEmployee.scss";
 import { useState, useEffect, useRef } from "react";
-import {
-  faCheck,
-  faTimes,
-  faInfoCircle,
+import {faCheck, faTimes, faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import states from "../data/states.json";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addNewEmployee } from "../actions/employeeAction";
+// import { addNewEmployee } from "../actions/employeeAction";
+import { addNewEmployee } from "../reducers/employeeReducer";
 import ConfirmationModal from "../_components/confirmationModal";
 
 const EMPLOYEE_REGEX = /^[A-z]{3,23}(?!\s*$).+$/;
@@ -22,7 +20,7 @@ export default function AddNewEmployee() {
   const userRef = useRef();
   const errRef = useRef();
   const dispatch = useDispatch();
-  const employees = useSelector((state) => state.employee.employees);
+  const {filteredEmployees} = useSelector((state) => state.employee);
 
   // const employee = useSelector((state) => state.employee.employeeList);
 
@@ -131,6 +129,7 @@ export default function AddNewEmployee() {
       validZipCode
     ) {
       let data = {
+        id: filteredEmployees.length + 1,
         firstName,
         lastName,
         dob,
@@ -165,7 +164,7 @@ export default function AddNewEmployee() {
     <main className="main-wrapper">
       {modalTriggered && (
         <ConfirmationModal
-          employees={employees}
+          employees={filteredEmployees}
           modalTriggered={modalTriggered}
           setModalTriggered={setModalTriggered}
         />
@@ -173,13 +172,15 @@ export default function AddNewEmployee() {
 
       <section className="container">
         <h2>Create a new employee</h2>
+
+        
         <Link
-          style={employees.length ? { display: "block" } : { display: "none" }}
+          style={filteredEmployees.length ? { display: "block" } : { display: "none" }}
           to="employee-list"
         >
-          {employees.length === 1
+          {filteredEmployees.length === 1
             ? "Have a look on your first employee !"
-            : `Have a look on your ${employees.length} employees!`}
+            : `Have a look on your ${filteredEmployees.length} employees!`}
         </Link>
 
         <p style={{ color: "red" }} ref={errRef}>

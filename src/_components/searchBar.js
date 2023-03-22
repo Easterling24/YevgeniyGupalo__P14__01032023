@@ -1,20 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { searchEmployee } from "../actions/employeeAction";
+import { filterEmployee } from "../reducers/employeeReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import "../styles/searchBar.scss"
+import "../styles/searchBar.scss";
 
 export default function SearchBar() {
   const inputRef = useRef();
-  const [search, setSearch] = useState("");
-  const [searchInput, setSearchInput] = useState(false);  
-
+  const [searchInput, setSearchInput] = useState(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(searchEmployee(search));
-  }, [dispatch, search]);
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -34,15 +28,22 @@ export default function SearchBar() {
     };
   }, [searchInput]);
 
+  const filterEmployees = (input) => {
+    dispatch(filterEmployee({ value: input }));
+  };
+
   return (
     <div className="employee-list-wrapper__input">
-
       <div
         ref={inputRef}
         className=" employee-list-wrapper__input employee-list-wrapper__input--search-container"
       >
         <button
-          className={searchInput ? "employee-list-wrapper__input employee-list-wrapper__input--offscreen" : "employee-list-wrapper__input employee-list-wrapper__input--visible"}
+          className={
+            searchInput
+              ? "employee-list-wrapper__input employee-list-wrapper__input--offscreen"
+              : "employee-list-wrapper__input employee-list-wrapper__input--visible"
+          }
           onClick={() => {
             setSearchInput(true);
           }}
@@ -51,17 +52,15 @@ export default function SearchBar() {
           <FontAwesomeIcon icon={faSearch} />
         </button>
 
-
         <input
           type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className={searchInput ? "employee-list-wrapper__input employee-list-wrapper__input--bar-visible" : "employee-list-wrapper__input employee-list-wrapper__input--bar-hidden"}
+          onChange={(e) => filterEmployees(e.target.value)}
+          className={
+            searchInput
+              ? "employee-list-wrapper__input employee-list-wrapper__input--bar-visible"
+              : "employee-list-wrapper__input employee-list-wrapper__input--bar-hidden"
+          }
         />
-
-
-
-     
       </div>
     </div>
   );

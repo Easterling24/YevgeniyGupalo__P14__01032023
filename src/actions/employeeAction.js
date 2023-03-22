@@ -2,9 +2,7 @@ import {
   ADD_NEW_EMPLOYEE_FAIL,
   ADD_NEW_EMPLOYEE_SUCCESS,
   ADD_NEW_EMPLOYEE_PENDING,
-  SEARCH_EMPLOYEE_PENDING,
-  SEARCH_EMPLOYEE_SUCCESS,
-  SEARCH_EMPLOYEE_FAIL,
+  FILTER_EMPLOYEES_BY_VALUES,
 } from "../constants/employeeConstants";
 
 export const addNewEmployee = (employeeData) => (dispatch, getState) => {
@@ -18,6 +16,7 @@ export const addNewEmployee = (employeeData) => (dispatch, getState) => {
     dispatch({
       type: ADD_NEW_EMPLOYEE_SUCCESS,
       payload: {
+        id: data.id,
         firstName: data.firstName,
         lastName: data.lastName,
         dob: data.dob,
@@ -42,18 +41,7 @@ export const addNewEmployee = (employeeData) => (dispatch, getState) => {
   }
 };
 
-export const searchEmployee = (query) => (dispatch) => {
-
-    dispatch({
-      type: SEARCH_EMPLOYEE_PENDING,
-    });
-
-    dispatch({
-      type: SEARCH_EMPLOYEE_SUCCESS,
-      payload: {
-        query
-
-      }
-    });
-
-};
+export const searchEmployee = (payload) => ({
+  type: FILTER_EMPLOYEES_BY_VALUES,
+  payload,
+});
