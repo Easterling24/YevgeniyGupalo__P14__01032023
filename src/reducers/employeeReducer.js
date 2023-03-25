@@ -93,6 +93,7 @@ const employeeSlice = createSlice({
 
     changeEntry: (state, action) => {
       const entryValue = action.payload
+      console.log(entryValue)
     }
   },
 });
