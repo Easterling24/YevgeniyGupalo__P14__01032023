@@ -2,13 +2,12 @@ import "../styles/addNewEmployee.scss";
 import { useState, useEffect, useRef } from "react";
 import {faCheck, faTimes, faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import states from "../data/states.json";
 
 import { useSelector, useDispatch } from "react-redux";
-// import { addNewEmployee } from "../actions/employeeAction";
-import { addNewEmployee } from "../reducers/employeeReducer";
+import { addNewEmployee, loadEmployees } from "../reducers/employeeReducer";
 import ConfirmationModal from "../_components/confirmationModal";
 
 const EMPLOYEE_REGEX = /^[A-z]{3,23}(?!\s*$).+$/;
@@ -20,7 +19,10 @@ export default function AddNewEmployee() {
   const userRef = useRef();
   const errRef = useRef();
   const dispatch = useDispatch();
-  const {filteredEmployees} = useSelector((state) => state.employee);
+  const {employees} = useSelector((state) => state.employee);
+
+
+
 
   // const employee = useSelector((state) => state.employee.employeeList);
 
@@ -129,7 +131,7 @@ export default function AddNewEmployee() {
       validZipCode
     ) {
       let data = {
-        id: filteredEmployees.length + 1,
+        id: employees.length + 1,
         firstName,
         lastName,
         dob,
@@ -141,7 +143,10 @@ export default function AddNewEmployee() {
         zipCode,
       };
 
+
+
       dispatch(addNewEmployee(data));
+      dispatch(loadEmployees())
       setModalTriggered(true);
       setSuccess(true);
 
@@ -160,11 +165,13 @@ export default function AddNewEmployee() {
     }
   };
 
+
+
   return (
     <main className="main-wrapper">
-      {modalTriggered && (
+      { modalTriggered && (  
         <ConfirmationModal
-          employees={filteredEmployees}
+          employees={employees}
           modalTriggered={modalTriggered}
           setModalTriggered={setModalTriggered}
         />
@@ -173,15 +180,25 @@ export default function AddNewEmployee() {
       <section className="container">
         <h2>Create a new employee</h2>
 
-        
+        {
+          employees &&  (
+
+            <Link style={employees.length ? {display:"block"}:{display:"none"}} to="employee-list">
+              <span>{employees.length === 1 ? "Say Hello to your first employee":`View your ${employees.length} employees`}</span>
+            </Link>
+          )
+        }
+
+{/*         
         <Link
-          style={filteredEmployees.length ? { display: "block" } : { display: "none" }}
+          style={employees ? { display: "block" } : { display: "none" }}
           to="employee-list"
         >
-          {filteredEmployees.length === 1
+          Hello
+          {employees.length === 1
             ? "Have a look on your first employee !"
-            : `Have a look on your ${filteredEmployees.length} employees!`}
-        </Link>
+            : `Have a look on your ${employees.length} employees!`}
+        </Link> */}
 
         <p style={{ color: "red" }} ref={errRef}>
           {errMsg}

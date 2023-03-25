@@ -8,12 +8,10 @@ export default function EmployeesTable() {
   const { filteredEmployees } = useSelector((state) => state.employee);
   const dispatch = useDispatch();
 
-  // Loading the initial data from local Storage or an empty array
-  useEffect(() => {
-    dispatch(loadEmployees());
-  }, [dispatch]);
+  console.log(filteredEmployees)
 
-  console.log(filteredEmployees);
+
+
 
   return (
     <section className="table-wrapper">

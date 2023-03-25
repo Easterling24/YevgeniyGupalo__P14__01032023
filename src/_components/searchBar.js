@@ -50,11 +50,16 @@ export default function SearchBar() {
         >
           {" "}
           <FontAwesomeIcon icon={faSearch} />
+
+          <div className="bar"></div> 
+          <div className="bar"></div>
+          <div className="bar"></div>
         </button>
 
         <input
           type="text"
           onChange={(e) => filterEmployees(e.target.value)}
+          placeholder="Fro example, enter a a first name or city.."
           className={
             searchInput
               ? "employee-list-wrapper__input employee-list-wrapper__input--bar-visible"

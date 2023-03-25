@@ -1,16 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "../styles/confirmationModal.scss";
 
 export default function ConfirmationModal(props) {
-  const { employees, modalTriggered, setModalTriggered } = props;
+  const { modalTriggered, setModalTriggered } = props;
 
-  console.log(modalTriggered)
+  const { filteredEmployees, employees } = useSelector((state) => state.employee);
+  const employee = employees[employees.length - 1];
 
   return (
     <div className={modalTriggered ? "modal-wrapper" : "modal-wrapper-closed"}>
       <div className="modal-wrapper-container">
         <p>
-          Employee {employees[employees.length - 1].firstName} has just been
+          Employee {employee.firstName} has just been
           created
         </p>
         <button

@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { paginateData } from "../reducers/employeeReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { loadNewPage, loadExactPage } from "../reducers/employeeReducer";
 import {
   faCircleChevronRight,
   faCircleChevronLeft,
@@ -10,13 +9,26 @@ import "../styles/pagination.scss";
 
 export default function Pagination() {
   const dispatch = useDispatch();
-  const { employees, filteredEmployees, entries, numberOfPages } = useSelector(
+  const { employees, filteredEmployees, entries, numberOfPages, totalPages } = useSelector(
     (state) => state.employee
   );
 
-  const paginate = (pageNumber) => {
-    dispatch(paginateData(pageNumber));
-  };
+
+
+  const nextPage = () => {
+    dispatch(loadNewPage({page: 1}))
+
+  }
+
+  const previousPage = () => {
+    dispatch(loadNewPage({page: -1}))
+
+  }
+  
+  const goToPage =(page) => {
+    dispatch(loadExactPage(page))
+
+  } 
 
   return (
     <section className="pagination-container">
@@ -24,23 +36,23 @@ export default function Pagination() {
         <FontAwesomeIcon icon={faCircleChevronLeft} />
       </button>
 
-      <div>
-        <ul className="pagination-container pagination-container--pagination">
-          {numberOfPages.map((number) => {
-            return (
-              <li
-                key={number}
-                onClick={() => paginate(number)}
-                className={
-                  "pagination-container pagination-container--page_number"
-                }
-              >
-                {number}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+     
+        <div className="pagination-container pagination-container--pagination">
+
+          {
+            [...Array(totalPages)].map((value,index) => {
+              return (
+                <button key={index}
+                onClick={() => goToPage(index+1)}
+                >
+                  {index + 1}
+                </button>
+              )
+            })
+          }
+
+        </div>
+      
 
       <button>
         <FontAwesomeIcon icon={faCircleChevronRight} />
