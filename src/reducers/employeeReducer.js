@@ -78,7 +78,6 @@ const employeeSlice = createSlice({
       let entries = state.entries;
       state.currentPage += page;
 
-
       let nextEmployees;
       if (page === 1) {
         let upperCount = state.currentCount + entries;
@@ -93,18 +92,19 @@ const employeeSlice = createSlice({
         state.filteredEmployees = nextEmployees;
       }
 
-      if(page === -1){
+      if (page === -1) {
         let upperCount = state.currentCount;
         let lowerCount = state.currentCount - entries;
-        state.currentCount = lowerCount
+        state.currentCount = lowerCount;
 
-    
         state.filteredEmployees = state.employees;
 
-        nextEmployees = state.filteredEmployees.slice(lowerCount - entries, upperCount - entries);
+        nextEmployees = state.filteredEmployees.slice(
+          lowerCount - entries,
+          upperCount - entries
+        );
 
         state.filteredEmployees = nextEmployees;
-
       }
     },
 
@@ -123,7 +123,7 @@ const employeeSlice = createSlice({
           upperCountExact
         );
         state.currentPage = exactPage;
-        state.currentCount = upperCountExact
+        state.currentCount = upperCountExact;
         state.filteredEmployees = exactEmployeeSet;
       } else {
         let upperCountExact = entries * exactPage;
@@ -136,7 +136,7 @@ const employeeSlice = createSlice({
           upperCountExact
         );
         state.currentPage = exactPage;
-        state.currentCount = upperCountExact
+        state.currentCount = upperCountExact;
 
         state.filteredEmployees = exactEmployeeSet;
       }

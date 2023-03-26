@@ -1,14 +1,14 @@
-import "../styles/addNewEmployee.scss";
-import { useState, useEffect, useRef } from "react";
-import {faCheck, faTimes, faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { Link, useLoaderData } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import states from "../data/states.json";
 
+import { useState, useEffect, useRef } from "react";
+import ConfirmationModal from "../components/confirmationModal";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewEmployee, loadEmployees } from "../reducers/employeeReducer";
-import ConfirmationModal from "../_components/confirmationModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faCheck, faTimes, faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
+import "../styles/addNewEmployee.scss";
+import states from "../data/states.json";
 
 const EMPLOYEE_REGEX = /^[A-z]{3,23}(?!\s*$).+$/;
 const EMPLOYEE_NON_EMPTY_STRING_REGEX = /^(?!\s*$).+/;
@@ -21,10 +21,6 @@ export default function AddNewEmployee() {
   const dispatch = useDispatch();
   const {employees} = useSelector((state) => state.employee);
 
-
-
-
-  // const employee = useSelector((state) => state.employee.employeeList);
 
   const [firstName, setFirstName] = useState("");
   const [validFirstName, setValidFirstName] = useState(false);
@@ -188,18 +184,7 @@ export default function AddNewEmployee() {
             </Link>
           )
         }
-
-{/*         
-        <Link
-          style={employees ? { display: "block" } : { display: "none" }}
-          to="employee-list"
-        >
-          Hello
-          {employees.length === 1
-            ? "Have a look on your first employee !"
-            : `Have a look on your ${employees.length} employees!`}
-        </Link> */}
-
+        
         <p style={{ color: "red" }} ref={errRef}>
           {errMsg}
         </p>

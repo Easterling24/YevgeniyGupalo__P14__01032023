@@ -1,8 +1,8 @@
 import {Route, Routes} from "react-router-dom"
 
-import Header from "./_components/header";
-import AddNewEmployee from "./_screens/addNewEmployee";
-import EmployeesDataTable from "./_screens/employeeList";
+import Header from "./components/header";
+import AddNewEmployee from "./screens/addNewEmployee";
+import EmployeesDataTable from "./screens/employeeList";
 import { loadEmployees } from "./reducers/employeeReducer";
 import {useDispatch } from "react-redux";
 import { useEffect } from "react";

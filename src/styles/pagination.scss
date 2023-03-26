@@ -23,14 +23,14 @@
   }
 
   button{
-
     background-color: transparent;
     outline: none;
     border: none;
     cursor: pointer;
+    font-size: 17px;
 
     & > svg{
-        font-size: 25px;
+        font-size: 35px;
     }
   }
 
@@ -45,6 +45,13 @@
     font-weight: bold;
     transition-duration: 300ms;
     transform: scale(1);
+  }
+
+  &--previous {
+
+  }
+  &--next {
+    
   }
 
   
