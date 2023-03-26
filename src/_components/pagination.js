@@ -32,7 +32,7 @@ export default function Pagination() {
 
   return (
     <section className="pagination-container">
-      <button>
+      <button onClick={() => previousPage()}>
         <FontAwesomeIcon icon={faCircleChevronLeft} />
       </button>
 
@@ -54,7 +54,7 @@ export default function Pagination() {
         </div>
       
 
-      <button>
+      <button onClick={() => nextPage()}>
         <FontAwesomeIcon icon={faCircleChevronRight} />
       </button>
     </section>

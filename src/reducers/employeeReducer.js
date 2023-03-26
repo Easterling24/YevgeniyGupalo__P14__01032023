@@ -18,6 +18,7 @@ const employeeSlice = createSlice({
     loadEmployees: (state, action) => {
       state.filteredEmployees = state.employees;
       let entries = state.entries;
+      state.currentCount = entries;
       let totalPages = Math.ceil(state.filteredEmployees.length / entries);
       state.totalPages = totalPages;
       let currentEmployees = state.filteredEmployees.slice(0, entries);
@@ -55,7 +56,7 @@ const employeeSlice = createSlice({
         let currentEmployees = state.filteredListTotal.slice(0, entries);
         state.filteredEmployees = currentEmployees;
         state.totalPages = totalPages;
-        state.currentPage = 1
+        state.currentPage = 1;
       } else {
         state.filterMode = false;
         let index = appliedFilters.indexOf(actionType);
@@ -73,9 +74,38 @@ const employeeSlice = createSlice({
     },
 
     loadNewPage: (state, action) => {
-      const page = action.payload;
+      const page = action.payload.page;
+      let entries = state.entries;
+      state.currentPage += page;
 
-      console.log(page);
+
+      let nextEmployees;
+      if (page === 1) {
+        let upperCount = state.currentCount + entries;
+        let lowerCount = state.currentCount;
+
+        state.currentCount += entries;
+
+        state.filteredEmployees = state.employees;
+
+        nextEmployees = state.filteredEmployees.slice(lowerCount, upperCount);
+
+        state.filteredEmployees = nextEmployees;
+      }
+
+      if(page === -1){
+        let upperCount = state.currentCount;
+        let lowerCount = state.currentCount - entries;
+        state.currentCount = lowerCount
+
+    
+        state.filteredEmployees = state.employees;
+
+        nextEmployees = state.filteredEmployees.slice(lowerCount - entries, upperCount - entries);
+
+        state.filteredEmployees = nextEmployees;
+
+      }
     },
 
     loadExactPage: (state, action) => {
@@ -93,6 +123,7 @@ const employeeSlice = createSlice({
           upperCountExact
         );
         state.currentPage = exactPage;
+        state.currentCount = upperCountExact
         state.filteredEmployees = exactEmployeeSet;
       } else {
         let upperCountExact = entries * exactPage;
@@ -105,6 +136,7 @@ const employeeSlice = createSlice({
           upperCountExact
         );
         state.currentPage = exactPage;
+        state.currentCount = upperCountExact
 
         state.filteredEmployees = exactEmployeeSet;
       }
