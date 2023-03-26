@@ -47,12 +47,15 @@ const employeeSlice = createSlice({
 
         if (index === -1) appliedFilters.push(actionType);
         state.filteredEmployees = filteredValues;
+        state.filteredListTotal = state.filteredEmployees;
 
         let employees = state.filteredEmployees;
         let entries = state.entries;
         let totalPages = Math.ceil(employees.length / entries);
-
+        let currentEmployees = state.filteredListTotal.slice(0, entries);
+        state.filteredEmployees = currentEmployees;
         state.totalPages = totalPages;
+        state.currentPage = 1
       } else {
         state.filterMode = false;
         let index = appliedFilters.indexOf(actionType);
@@ -76,25 +79,41 @@ const employeeSlice = createSlice({
     },
 
     loadExactPage: (state, action) => {
+      const exactPage = action.payload;
       let entries = state.entries;
 
-      const exactPage = action.payload;
-      let upperCountExact = entries * exactPage;
-      let lowerCountExact = upperCountExact - entries;
+      if (state.filterMode && state.filteredListTotal.length) {
+        let upperCountExact = entries * exactPage;
+        let lowerCountExact = upperCountExact - entries;
 
-      let exactEmployeeSet = state.employees.slice(
-        lowerCountExact,
-        upperCountExact
-      );
-      state.currentPage = exactPage;
+        state.filteredEmployees = state.filteredListTotal;
 
-      state.filteredEmployees = exactEmployeeSet;
+        let exactEmployeeSet = state.filteredEmployees.slice(
+          lowerCountExact,
+          upperCountExact
+        );
+        state.currentPage = exactPage;
+        state.filteredEmployees = exactEmployeeSet;
+      } else {
+        let upperCountExact = entries * exactPage;
+        let lowerCountExact = upperCountExact - entries;
+
+        state.filteredEmployees = state.employees;
+
+        let exactEmployeeSet = state.filteredEmployees.slice(
+          lowerCountExact,
+          upperCountExact
+        );
+        state.currentPage = exactPage;
+
+        state.filteredEmployees = exactEmployeeSet;
+      }
     },
 
     changeEntry: (state, action) => {
-      const entryValue = action.payload
-      console.log(entryValue)
-    }
+      const entryValue = action.payload;
+      console.log(entryValue);
+    },
   },
 });
 

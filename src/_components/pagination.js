@@ -9,7 +9,7 @@ import "../styles/pagination.scss";
 
 export default function Pagination() {
   const dispatch = useDispatch();
-  const { employees, filteredEmployees, entries, numberOfPages, totalPages } = useSelector(
+  const { totalPages, currentPage } = useSelector(
     (state) => state.employee
   );
 
@@ -42,7 +42,7 @@ export default function Pagination() {
           {
             [...Array(totalPages)].map((value,index) => {
               return (
-                <button key={index}
+                <button className={`pagination-container ${currentPage === index+1 ? "pagination-container pagination-container--active":"pagination-container pagination-container--item" }`} key={index}
                 onClick={() => goToPage(index+1)}
                 >
                   {index + 1}

@@ -33,4 +33,20 @@
         font-size: 25px;
     }
   }
+
+  &--active{
+    color: #ff9b24;
+    font-weight: bold;
+    transition-duration: 300ms;
+    transform: scale(1.2);
+  }
+  &--item{
+    color: #1c1b22;
+    font-weight: bold;
+    transition-duration: 300ms;
+    transform: scale(1);
+  }
+
+  
+
 }
