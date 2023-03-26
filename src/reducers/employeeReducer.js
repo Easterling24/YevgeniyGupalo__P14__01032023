@@ -36,14 +36,14 @@ const employeeSlice = createSlice({
       const value = action.payload.value;
 
       let appliedFilters = state.appliedFilters;
-      let filteredValues = state.employees.filter((employee) =>
-        employee.firstName.toLowerCase().includes(value.toLowerCase()) 
-        || employee.lastName.toLowerCase().includes(value.toLowerCase())
-        || employee.department.toLowerCase().includes(value.toLowerCase())
-        || employee.city.toLowerCase().includes(value.toLowerCase())
-        || employee.state.toLowerCase().includes(value.toLowerCase())
-        || employee.street.toLowerCase().includes(value.toLowerCase())
-        
+      let filteredValues = state.employees.filter(
+        (employee) =>
+          employee.firstName.toLowerCase().includes(value.toLowerCase()) ||
+          employee.lastName.toLowerCase().includes(value.toLowerCase()) ||
+          employee.department.toLowerCase().includes(value.toLowerCase()) ||
+          employee.city.toLowerCase().includes(value.toLowerCase()) ||
+          employee.state.toLowerCase().includes(value.toLowerCase()) ||
+          employee.street.toLowerCase().includes(value.toLowerCase())
       );
 
       const actionType = action.type;
@@ -179,8 +179,27 @@ const employeeSlice = createSlice({
     },
 
     changeEntry: (state, action) => {
-      const entryValue = action.payload;
-      console.log(entryValue);
+      const entryValue = action.payload.value;
+
+      if (state.filterMode && state.filteredListTotal.length) {
+        state.filteredEmployees = state.filteredListTotal;
+        state.entries = entryValue;
+        let entries = state.entries;
+        state.currentCount = entries;
+        let totalPages = Math.ceil(state.filteredEmployees.length / entries);
+        state.totalPages = totalPages;
+        let currentEmployees = state.filteredEmployees.slice(0, entries);
+        state.filteredEmployees = currentEmployees;
+      } else {
+        state.filteredEmployees = state.employees;
+        state.entries = entryValue;
+        let entries = state.entries;
+        state.currentCount = entries;
+        let totalPages = Math.ceil(state.filteredEmployees.length / entries);
+        state.totalPages = totalPages;
+        let currentEmployees = state.filteredEmployees.slice(0, entries);
+        state.filteredEmployees = currentEmployees;
+      }
     },
   },
 });
@@ -193,4 +212,5 @@ export const {
   filterEmployee,
   loadNewPage,
   loadExactPage,
+  changeEntry,
 } = employeeSlice.actions;

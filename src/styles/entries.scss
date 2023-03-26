@@ -1,0 +1,60 @@
+.selector_wrapper{
+
+    &--text_container{
+        display: flex;
+        align-items: center;
+
+        label{
+            margin-right: 0.5rem;
+            color: #ff9b24;
+            font-weight: bold;
+        }
+
+        span{
+            margin-left: 0.5rem;
+            color: #ff9b24;
+            font-weight: bold;
+        }
+    }
+
+    &--dropdown-container{
+        background-color: transparent;
+        position: relative;
+  
+
+        &--header{
+            background-color: transparent;
+            color: white;
+            font-weight: bold;
+            padding: 5px 15px;
+            cursor: pointer;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        &--dropdown{
+            margin-top: 10%;
+            position: absolute;
+            background-color: #2e333b;
+            width: 100%;
+            z-index: 5;
+
+             & >ul {
+                padding: 0;
+
+                & > li{
+                    list-style: none;
+                    padding: 8px;
+                    color: #ff9b24;
+                    cursor: pointer;
+                    &:hover{
+                        background-color: rgba(255, 255, 255, 0.3);
+                        
+                    }
+
+                }
+             }
+
+        }
+
+    }
+
+}

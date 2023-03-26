@@ -1,17 +1,10 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { loadEmployees } from "../reducers/employeeReducer";
+import React   from "react";
+import { useSelector } from "react-redux";
 import "../styles/dataTable.scss";
 
 export default function EmployeesTable() {
   // Extracting the employee data from state
   const { filteredEmployees } = useSelector((state) => state.employee);
-  const dispatch = useDispatch();
-
-  console.log(filteredEmployees)
-
-
-
 
   return (
     <section className="table-wrapper">

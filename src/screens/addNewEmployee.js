@@ -179,7 +179,7 @@ export default function AddNewEmployee() {
         {
           employees &&  (
 
-            <Link style={employees.length ? {display:"block"}:{display:"none"}} to="employee-list">
+            <Link style={employees.length ? {display:"inline"}:{display:"none"}} to="employee-list">
               <span>{employees.length === 1 ? "Say Hello to your first employee":`View your ${employees.length} employees`}</span>
             </Link>
           )
