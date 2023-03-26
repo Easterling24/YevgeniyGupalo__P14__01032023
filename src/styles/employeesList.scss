@@ -4,9 +4,28 @@
   text-align: center;
   position: relative;
 
+  & > a {
+    position: absolute;
+    bottom: 0;
+    text-decoration: none;
+    cursor: pointer;
+    z-index: 5;
+   & > svg{
+    color: darken($color: #ff9b24, $amount: 10);
+    font-size: 25px;
+    
+   }
+
+  }
+
   h1 {
     color: #fff;
-    font-size: 35px;
+    font-size: 25px;
+    position: relative;
+    text-align: left;
+    font-weight: normal;
+    letter-spacing: 1.5px;
+    color: #decca1;
   }
 
   &--top{
@@ -21,10 +40,5 @@
     align-items: center;
     justify-content: center;
 
-    & > a {
-      position: absolute;
-      left: 0;
-
-    }
   }
 }

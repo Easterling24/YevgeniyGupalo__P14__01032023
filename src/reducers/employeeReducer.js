@@ -37,7 +37,13 @@ const employeeSlice = createSlice({
 
       let appliedFilters = state.appliedFilters;
       let filteredValues = state.employees.filter((employee) =>
-        employee.firstName.toLowerCase().includes(value.toLowerCase())
+        employee.firstName.toLowerCase().includes(value.toLowerCase()) 
+        || employee.lastName.toLowerCase().includes(value.toLowerCase())
+        || employee.department.toLowerCase().includes(value.toLowerCase())
+        || employee.city.toLowerCase().includes(value.toLowerCase())
+        || employee.state.toLowerCase().includes(value.toLowerCase())
+        || employee.street.toLowerCase().includes(value.toLowerCase())
+        
       );
 
       const actionType = action.type;
@@ -77,34 +83,64 @@ const employeeSlice = createSlice({
       const page = action.payload.page;
       let entries = state.entries;
       state.currentPage += page;
-
       let nextEmployees;
-      if (page === 1) {
-        let upperCount = state.currentCount + entries;
-        let lowerCount = state.currentCount;
 
-        state.currentCount += entries;
+      if (state.filterMode && state.filteredListTotal) {
+        if (page === 1) {
+          let upperCount = state.currentCount + entries;
+          let lowerCount = state.currentCount;
 
-        state.filteredEmployees = state.employees;
+          state.currentCount += entries;
 
-        nextEmployees = state.filteredEmployees.slice(lowerCount, upperCount);
+          state.filteredEmployees = state.filteredListTotal;
 
-        state.filteredEmployees = nextEmployees;
-      }
+          nextEmployees = state.filteredEmployees.slice(lowerCount, upperCount);
 
-      if (page === -1) {
-        let upperCount = state.currentCount;
-        let lowerCount = state.currentCount - entries;
-        state.currentCount = lowerCount;
+          state.filteredEmployees = nextEmployees;
+        }
 
-        state.filteredEmployees = state.employees;
+        if (page === -1) {
+          let upperCount = state.currentCount;
+          let lowerCount = state.currentCount - entries;
+          state.currentCount = lowerCount;
 
-        nextEmployees = state.filteredEmployees.slice(
-          lowerCount - entries,
-          upperCount - entries
-        );
+          state.filteredEmployees = state.filteredListTotal;
 
-        state.filteredEmployees = nextEmployees;
+          nextEmployees = state.filteredEmployees.slice(
+            lowerCount - entries,
+            upperCount - entries
+          );
+
+          state.filteredEmployees = nextEmployees;
+        }
+      } else {
+        if (page === 1) {
+          let upperCount = state.currentCount + entries;
+          let lowerCount = state.currentCount;
+
+          state.currentCount += entries;
+
+          state.filteredEmployees = state.employees;
+
+          nextEmployees = state.filteredEmployees.slice(lowerCount, upperCount);
+
+          state.filteredEmployees = nextEmployees;
+        }
+
+        if (page === -1) {
+          let upperCount = state.currentCount;
+          let lowerCount = state.currentCount - entries;
+          state.currentCount = lowerCount;
+
+          state.filteredEmployees = state.employees;
+
+          nextEmployees = state.filteredEmployees.slice(
+            lowerCount - entries,
+            upperCount - entries
+          );
+
+          state.filteredEmployees = nextEmployees;
+        }
       }
     },
 

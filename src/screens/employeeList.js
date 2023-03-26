@@ -2,23 +2,20 @@ import EmployeesTable from "../components/employeesTable";
 import SearchBar from "../components/searchBar";
 import Pagination from "../components/pagination";
 import NumberOfEntries from "../components/numberEntries";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+faHouseUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { loadEmployees } from "../reducers/employeeReducer";
 import "../styles/employeesList.scss";
 
 export default function EmployeesDataTable() {
-  const dispatch = useDispatch();
 
-  // Loading the initial data from local Storage or an empty array
-  // useEffect(() => {
-  //   dispatch(loadEmployees());
-  // }, [dispatch]);
   return (
     <main className="employee-list-wrapper">
-      <h1>Your Employees</h1>
-      <Link to="/"> Back</Link>
+      <h1>Current employees</h1>
+      <Link to="/"><FontAwesomeIcon icon={faHouseUser}/></Link>
+      {/* <Link to="/">back</Link> */}
 
       <section className=" employee-list-wrapper employee-list-wrapper--top">
         <NumberOfEntries />
