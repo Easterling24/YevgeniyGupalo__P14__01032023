@@ -1,26 +1,30 @@
-
 import { useState, useEffect, useRef } from "react";
 import ConfirmationModal from "../components/confirmationModal";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewEmployee, loadEmployees } from "../reducers/employeeReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCheck, faTimes, faInfoCircle,
+import DatePicker from "react-datepicker";
+import { format } from "date-fns";
+import "react-day-picker/dist/style.css";
+import "react-datepicker/dist/react-datepicker.css";
+import {
+  faCheck,
+  faTimes,
+  faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/addNewEmployee.scss";
 import states from "../data/states.json";
 
 const EMPLOYEE_REGEX = /^[A-z]{3,23}(?!\s*$).+$/;
 const EMPLOYEE_NON_EMPTY_STRING_REGEX = /^(?!\s*$).+/;
-const EMPLOYEE_ONLY_NUMBERS = /^[0-9]{3,23}$/;
-const EMPLOYEE_NUM_CHAR_REGEX = /^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
+const NON_EMPY_STRING = /^(?!\s*$).+/
 
 export default function AddNewEmployee() {
   const userRef = useRef();
   const errRef = useRef();
   const dispatch = useDispatch();
-  const {employees} = useSelector((state) => state.employee);
-
+  const { employees } = useSelector((state) => state.employee);
 
   const [firstName, setFirstName] = useState("");
   const [validFirstName, setValidFirstName] = useState(false);
@@ -71,10 +75,10 @@ export default function AddNewEmployee() {
     setValidFirstName(EMPLOYEE_REGEX.test(firstName));
     setValidLastName(EMPLOYEE_REGEX.test(lastName));
     setValidCity(EMPLOYEE_REGEX.test(city));
-    setValidStreet(EMPLOYEE_NUM_CHAR_REGEX.test(street));
+    setValidStreet(NON_EMPY_STRING.test(street));
     setValidDob(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(birthDate));
     setValidDate(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(startDate));
-    setValidZipCode(EMPLOYEE_ONLY_NUMBERS.test(zipCode));
+    setValidZipCode(NON_EMPY_STRING.test(zipCode));
     setValidState(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(state));
     setValidDepartment(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(department));
   }, [
@@ -130,8 +134,8 @@ export default function AddNewEmployee() {
         id: employees.length + 1,
         firstName,
         lastName,
-        birthDate,
-        startDate,
+        birthDate: format(new Date(birthDate), "dd/MM/yyyy"),
+        startDate: format(new Date(startDate), "dd/MM/yyyy"),
         street,
         city,
         state,
@@ -139,10 +143,8 @@ export default function AddNewEmployee() {
         zipCode,
       };
 
-
-
       dispatch(addNewEmployee(data));
-      dispatch(loadEmployees())
+      dispatch(loadEmployees());
       setModalTriggered(true);
       setSuccess(true);
 
@@ -161,11 +163,9 @@ export default function AddNewEmployee() {
     }
   };
 
-
-
   return (
     <main className="main-wrapper">
-      { modalTriggered && (  
+      {modalTriggered && (
         <ConfirmationModal
           employees={employees}
           modalTriggered={modalTriggered}
@@ -176,15 +176,21 @@ export default function AddNewEmployee() {
       <section className="container">
         <h2>Create a new employee</h2>
 
-        {
-          employees &&  (
+        {employees && (
+          <Link
+            style={
+              employees.length ? { display: "inline" } : { display: "none" }
+            }
+            to="employee-list"
+          >
+            <span>
+              {employees.length === 1
+                ? "Say Hello to your first employee"
+                : `View your ${employees.length} employees`}
+            </span>
+          </Link>
+        )}
 
-            <Link style={employees.length ? {display:"inline"}:{display:"none"}} to="employee-list">
-              <span>{employees.length === 1 ? "Say Hello to your first employee":`View your ${employees.length} employees`}</span>
-            </Link>
-          )
-        }
-        
         <p style={{ color: "red" }} ref={errRef}>
           {errMsg}
         </p>
@@ -276,13 +282,23 @@ export default function AddNewEmployee() {
                 />
               </div>
 
-              <input
-                id="date-of-birth"
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
+              <DatePicker
+                selected={birthDate}
+                onChange={(date) => setBirthDate(date)}
+                showYearDropdown
+                dateFormatCalendar="MMMM"
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
               />
             </div>
+
+            <p
+              id="uidnote"
+              className={birthDate && !validDob ? "instructions" : "offscreen"}
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              Add your birth date
+            </p>
 
             <div className="input-container">
               <div className="label-box">
@@ -297,12 +313,16 @@ export default function AddNewEmployee() {
                   className={validDate || !startDate ? "hide" : "invalid"}
                 />
               </div>
-              <input
-                id="start-date"
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                showYearDropdown
+                dateFormatCalendar="MMMM"
+                yearDropdownItemNumber={15}
+                scrollableYearDropdown
+                dateFormat="MM/dd/yyyy"
               />
+             
             </div>
           </div>
 
@@ -328,7 +348,21 @@ export default function AddNewEmployee() {
                   type="text"
                   value={street}
                   onChange={(e) => setStreet(e.target.value)}
+                  onFocus={() => setStreetFocus(true)}
+                  onBlur={() => setStreetFocus(false)}
                 />
+
+                <p
+                  id="uidnote"
+                  className={
+                    streetFocus && street && !validStreet
+                      ? "instructions"
+                      : "offscreen"
+                  }
+                >
+                  <FontAwesomeIcon icon={faInfoCircle} />
+                  Field cannot be empty
+                </p>
               </div>
               <div className="input-container">
                 <div className="label-box">

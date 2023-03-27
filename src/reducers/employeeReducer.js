@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { json } from "react-router";
 import { mockedEmployees } from "../mockedData/employees";
 
-const employeesFromLocalStorage = localStorage.getItem('employees') ? JSON.parse(localStorage.getItem('employees')): []
+
 
 const employeeSlice = createSlice({
   name: "employee",
   initialState: {
-    employees: employeesFromLocalStorage,
+    // employees: localStorage.getItem('employees') ? JSON.parse(localStorage.getItem('employees')) :[],
+    employees: mockedEmployees,
     currentEmployees: [],
     filteredEmployees: [],
     appliedFilters: [],
@@ -18,8 +18,9 @@ const employeeSlice = createSlice({
 
   },
   reducers: {
-    loadEmployees: (state) => {
 
+  
+    loadEmployees: (state) => {
       state.currentPage = 1;
       state.filterMode = false;
       state.appliedFilters = [];
@@ -37,10 +38,14 @@ const employeeSlice = createSlice({
 
       state.employees = [...state.employees, newEmployee]
 
-      localStorage.setItem('employees', JSON.stringify(state.employees))
 
-      console.log( JSON.parse( localStorage.getItem('employees')).length)
 
+
+
+
+      // state.employees = [...state.employees, newEmployee]
+
+      // localStorage.setItem('employees', JSON.stringify(state.employees))
 
       // localStorage.setItem("employees", JSON.stringify(state.employees));
     },
@@ -223,4 +228,5 @@ export const {
   loadNewPage,
   loadExactPage,
   changeEntry,
+  getLocalStorage,
 } = employeeSlice.actions;

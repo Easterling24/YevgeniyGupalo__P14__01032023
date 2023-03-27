@@ -1,19 +1,23 @@
-import React   from "react";
+import React from "react";
 import { useSelector } from "react-redux";
+import { format } from "date-fns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+faSortDown,
+faSortUp
+} from "@fortawesome/free-solid-svg-icons";
 import "../styles/dataTable.scss";
 
 export default function EmployeesTable() {
   // Extracting the employee data from state
   const { filteredEmployees } = useSelector((state) => state.employee);
 
-
-  console.log(filteredEmployees)
   return (
     <section className="table-wrapper">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
-            <th scope="col">First Name</th>
+            <th className="table_head" scope="col"><span>First Name</span> <div className="icon-container"><FontAwesomeIcon icon={faSortDown}/></div></th>
             <th scope="col">Last Name</th>
             <th scope="col">Start Date</th>
             <th scope="col">Department</th>
@@ -30,11 +34,11 @@ export default function EmployeesTable() {
             filteredEmployees.map((employee) => {
               return (
                 <tr key={employee.id}>
-                  <td>{employee.firstName}</td>
+                  <td>{ employee.firstName}</td>
                   <td>{employee.lastName}</td>
-                  <td>{employee.startDate}</td>
+                  <td>{format( new Date(employee.startDate), "dd/MM/yyyy")}</td>
                   <td>{employee.department}</td>
-                  <td>{employee.birthDate}</td>
+                  <td>{ format( new Date(employee.birthDate), "dd/MM/yyyy")}</td>
                   <td>{employee.street}</td>
                   <td>{employee.city}</td>
                   <td>{employee.state}</td>

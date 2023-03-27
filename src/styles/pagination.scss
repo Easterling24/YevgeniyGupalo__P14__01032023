@@ -1,6 +1,6 @@
 .pagination-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 
   &--pagination {
@@ -54,6 +54,12 @@
     
   }
 
+  &--left{
+    display: flex;
+    align-items: center;
+    color: #f08200;
+    font-weight: bold;
+  }
   
 
 }

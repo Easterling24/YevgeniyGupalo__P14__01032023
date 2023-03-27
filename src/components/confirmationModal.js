@@ -5,7 +5,7 @@ import "../styles/confirmationModal.scss";
 export default function ConfirmationModal(props) {
   const { modalTriggered, setModalTriggered } = props;
 
-  const { filteredEmployees, employees } = useSelector((state) => state.employee);
+  const {employees } = useSelector((state) => state.employee);
   const employee = employees[employees.length - 1];
 
   return (

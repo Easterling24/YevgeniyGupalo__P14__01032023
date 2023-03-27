@@ -1,16 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import {employeeReducer} from './reducers/employeeReducer';
-
-const persistedState = localStorage.getItem('employees')
-						? localStorage.getItem('employees')
-						: []
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import { employeeReducer } from "./reducers/employeeReducer";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 const store = configureStore({
-	reducer: {
-		employee:employeeReducer,
-
-	},
-	persistedState
+  reducer: {
+    employee: employeeReducer,
+  },
 });
 
 export default store;

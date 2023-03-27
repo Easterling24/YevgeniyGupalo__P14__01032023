@@ -2,29 +2,16 @@ import {Route, Routes} from "react-router-dom"
 
 import Header from "./components/header";
 import AddNewEmployee from "./screens/addNewEmployee";
-import EmployeesDataTable from "./screens/employeeList";
-import { loadEmployees } from "./reducers/employeeReducer";
-import {useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { mockedEmployees } from "./mockedData/employees";
+import EmployeeList from "./screens/employeeList";
 import "./styles/app.scss"
 
 function App() {
-  const dispatch = useDispatch()
-  
-  // Loading initial data from the local storage if some or an empty array to begin with
-  useEffect(() => {
-    dispatch(loadEmployees())
-
-    localStorage.setItem('employees', JSON.stringify(mockedEmployees))
-  }, [dispatch])
-
   return (
     <div className="App">
       <Header/>
       <Routes>
         <Route path="/" element={<AddNewEmployee/>}/>
-        <Route path="/employee-list" element={<EmployeesDataTable/>} />
+        <Route path="/employee-list" element={<EmployeeList/>} />
       </Routes>
 
     </div>

@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import "../styles/employeesList.scss";
 
 
-export default function EmployeesDataTable() {
+export default function EmployeeList() {
 
   const dispatch = useDispatch()
   useEffect(() => {

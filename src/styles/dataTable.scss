@@ -12,6 +12,7 @@
     thead {
       th {
         background-color: #2e333b;
+    
       }
     }
 
@@ -21,6 +22,14 @@
       font-size: 15px;
       text-align: left;
       color: #ff9b24;
+    
+        & > th{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+         }
+      
+      
     }
     td {
       padding: 15px;
@@ -31,6 +40,7 @@
 
     tr{
       text-align: center;
+    
     }
 
     tbody {
@@ -56,3 +66,5 @@
     }
   }
 }
+
+
