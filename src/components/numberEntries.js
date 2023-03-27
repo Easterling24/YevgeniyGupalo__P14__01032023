@@ -8,7 +8,7 @@ export default function NumberOfEntries() {
   const { entries } = useSelector((state) => state.employee);
   const [menuOpen, setMenuOpen] = useState(false);
   // const [selectedOption, setSelectedOption] = useState(10)
-  const entriesList = [4, 8, 50, 100];
+  const entriesList = [5, 10, 15, 25, 50, 100];
 
   const handleDropdown = () => {
     if (menuOpen) {
@@ -23,7 +23,7 @@ export default function NumberOfEntries() {
   const chnageEntry = (e) => {
     let entry = parseInt(e.target.textContent);
     dispatch(changeEntry({ value: entry }));
-    // dispatch(loadEmployees())
+    dispatch(loadEmployees())
     setMenuOpen(false)
   };
 

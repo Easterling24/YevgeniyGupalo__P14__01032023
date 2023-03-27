@@ -6,6 +6,8 @@ export default function EmployeesTable() {
   // Extracting the employee data from state
   const { filteredEmployees } = useSelector((state) => state.employee);
 
+
+  console.log(filteredEmployees)
   return (
     <section className="table-wrapper">
       <table className="min-w-full divide-y divide-gray-200">
@@ -32,7 +34,7 @@ export default function EmployeesTable() {
                   <td>{employee.lastName}</td>
                   <td>{employee.startDate}</td>
                   <td>{employee.department}</td>
-                  <td>{employee.dob}</td>
+                  <td>{employee.birthDate}</td>
                   <td>{employee.street}</td>
                   <td>{employee.city}</td>
                   <td>{employee.state}</td>

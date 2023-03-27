@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { filterEmployee, loadEmployees } from "../reducers/employeeReducer";
+import { filterEmployee } from "../reducers/employeeReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../styles/searchBar.scss";
@@ -30,7 +30,6 @@ export default function SearchBar() {
 
   const filterEmployees = (input) => {
     dispatch(filterEmployee({ value: input }));
-
   };
 
   return (
@@ -51,8 +50,7 @@ export default function SearchBar() {
         >
           {" "}
           <FontAwesomeIcon icon={faSearch} />
-
-          <div className="bar"></div> 
+          <div className="bar"></div>
           <div className="bar"></div>
           <div className="bar"></div>
         </button>

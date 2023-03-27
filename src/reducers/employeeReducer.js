@@ -1,21 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { json } from "react-router";
+import { mockedEmployees } from "../mockedData/employees";
+
+const employeesFromLocalStorage = localStorage.getItem('employees') ? JSON.parse(localStorage.getItem('employees')): []
 
 const employeeSlice = createSlice({
   name: "employee",
   initialState: {
-    employees: localStorage.getItem("employees")
-      ? JSON.parse(localStorage.getItem("employees"))
-      : [],
+    employees: employeesFromLocalStorage,
     currentEmployees: [],
     filteredEmployees: [],
     appliedFilters: [],
-    entries: 4,
+    entries: 10,
     currentPage: 1,
     filterMode: false,
     paginatedEmployees: [],
+
   },
   reducers: {
-    loadEmployees: (state, action) => {
+    loadEmployees: (state) => {
+
+      state.currentPage = 1;
+      state.filterMode = false;
+      state.appliedFilters = [];
       state.filteredEmployees = state.employees;
       let entries = state.entries;
       state.currentCount = entries;
@@ -27,9 +34,15 @@ const employeeSlice = createSlice({
 
     addNewEmployee: (state, action) => {
       const newEmployee = action.payload;
-      state.employees = [...state.employees, newEmployee];
 
-      localStorage.setItem("employees", JSON.stringify(state.employees));
+      state.employees = [...state.employees, newEmployee]
+
+      localStorage.setItem('employees', JSON.stringify(state.employees))
+
+      console.log( JSON.parse( localStorage.getItem('employees')).length)
+
+
+      // localStorage.setItem("employees", JSON.stringify(state.employees));
     },
 
     filterEmployee: (state, action) => {
@@ -89,13 +102,9 @@ const employeeSlice = createSlice({
         if (page === 1) {
           let upperCount = state.currentCount + entries;
           let lowerCount = state.currentCount;
-
           state.currentCount += entries;
-
           state.filteredEmployees = state.filteredListTotal;
-
           nextEmployees = state.filteredEmployees.slice(lowerCount, upperCount);
-
           state.filteredEmployees = nextEmployees;
         }
 
@@ -199,6 +208,7 @@ const employeeSlice = createSlice({
         state.totalPages = totalPages;
         let currentEmployees = state.filteredEmployees.slice(0, entries);
         state.filteredEmployees = currentEmployees;
+        state.currentPage = 1;
       }
     },
   },

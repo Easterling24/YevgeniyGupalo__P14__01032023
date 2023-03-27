@@ -27,7 +27,12 @@ export default function Pagination() {
 
   return (
     <section className="pagination-container">
-      <button
+      <div className="pagination-container pagination-container--left">
+
+        
+      </div>
+
+      <div className=" pagination-container pagination-container-right">      <button
         className="pagination-container pagination-container--previous"
         disabled={currentPage === 1}
         onClick={() => previousPage()}
@@ -59,7 +64,8 @@ export default function Pagination() {
         onClick={() => nextPage()}
       >
         <FontAwesomeIcon icon={faCircleChevronRight} />
-      </button>
+      </button></div>
+
     </section>
   );
 }

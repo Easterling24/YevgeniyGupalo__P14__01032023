@@ -30,7 +30,7 @@ export default function AddNewEmployee() {
   const [validLastName, setValidLastName] = useState(false);
   const [lastNameFocus, setLastNameFocus] = useState(false);
 
-  const [dob, setDob] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [validDob, setValidDob] = useState(false);
   const [dobfocus, setDobFocus] = useState(false);
 
@@ -72,7 +72,7 @@ export default function AddNewEmployee() {
     setValidLastName(EMPLOYEE_REGEX.test(lastName));
     setValidCity(EMPLOYEE_REGEX.test(city));
     setValidStreet(EMPLOYEE_NUM_CHAR_REGEX.test(street));
-    setValidDob(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(dob));
+    setValidDob(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(birthDate));
     setValidDate(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(startDate));
     setValidZipCode(EMPLOYEE_ONLY_NUMBERS.test(zipCode));
     setValidState(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(state));
@@ -86,7 +86,7 @@ export default function AddNewEmployee() {
     validCity,
     street,
     validStreet,
-    dob,
+    birthDate,
     validDob,
     startDate,
     validDate,
@@ -103,7 +103,7 @@ export default function AddNewEmployee() {
   }, [
     firstName,
     lastName,
-    dob,
+    birthDate,
     startDate,
     street,
     city,
@@ -130,7 +130,7 @@ export default function AddNewEmployee() {
         id: employees.length + 1,
         firstName,
         lastName,
-        dob,
+        birthDate,
         startDate,
         street,
         city,
@@ -148,7 +148,7 @@ export default function AddNewEmployee() {
 
       setFirstName("");
       setLastName("");
-      setDob("");
+      setBirthDate("");
       setStartDate("");
       setStreet("");
       setCity("");
@@ -272,15 +272,15 @@ export default function AddNewEmployee() {
                 />
                 <FontAwesomeIcon
                   icon={faTimes}
-                  className={validDob || !dob ? "hide" : "invalid"}
+                  className={validDob || !birthDate ? "hide" : "invalid"}
                 />
               </div>
 
               <input
                 id="date-of-birth"
                 type="date"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
               />
             </div>
 

@@ -1,25 +1,31 @@
+# Project #14 - HR Net 
+
+## Used Technologies / Dependencies
+
+- React :
+  - Create react app
+  - ReactRouter
+  - Styled-components
+  - react-hook-form
+  - react-datepicker
+  - react-redux
+  - @reduxjs/toolkit
+  - react-router-dom
+  - redux
+  - sass
+
 ### Prerequisites
 
-Make sure you have the followoing installed
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+Argent Bank uses the following tech stack:
 
-### Installation
+- [Node.js v12](https://nodejs.org/en/)
 
 
+```bash
+# Check Node.js version
+node --version
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/Easterling24/Technical-Test.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Start the app
-   ```sh
-   npm start
-   ```
+# Check Mongo version
+mongo --version
+```
 

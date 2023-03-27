@@ -6,6 +6,7 @@ import EmployeesDataTable from "./screens/employeeList";
 import { loadEmployees } from "./reducers/employeeReducer";
 import {useDispatch } from "react-redux";
 import { useEffect } from "react";
+import { mockedEmployees } from "./mockedData/employees";
 import "./styles/app.scss"
 
 function App() {
@@ -14,6 +15,8 @@ function App() {
   // Loading initial data from the local storage if some or an empty array to begin with
   useEffect(() => {
     dispatch(loadEmployees())
+
+    localStorage.setItem('employees', JSON.stringify(mockedEmployees))
   }, [dispatch])
 
   return (
