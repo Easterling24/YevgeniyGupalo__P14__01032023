@@ -8,6 +8,7 @@
   - Styled-components
   - react-hook-form
   - react-datepicker
+  - date-fns
   - react-redux
   - @reduxjs/toolkit
   - react-router-dom

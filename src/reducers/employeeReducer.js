@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { mockedEmployees } from "../mockedData/employees";
 
-
-
 const employeeSlice = createSlice({
   name: "employee",
   initialState: {
@@ -15,11 +13,8 @@ const employeeSlice = createSlice({
     currentPage: 1,
     filterMode: false,
     paginatedEmployees: [],
-
   },
   reducers: {
-
-  
     loadEmployees: (state) => {
       state.currentPage = 1;
       state.filterMode = false;
@@ -36,7 +31,7 @@ const employeeSlice = createSlice({
     addNewEmployee: (state, action) => {
       const newEmployee = action.payload;
 
-      state.employees = [...state.employees, newEmployee]
+      state.employees = [...state.employees, newEmployee];
       // state.employees = [...state.employees, newEmployee]
 
       // localStorage.setItem('employees', JSON.stringify(state.employees))
@@ -212,33 +207,17 @@ const employeeSlice = createSlice({
     },
 
     sortByFirstName: (state, action) => {
-
+      const sortByFirstNameArr = action.payload.direction
+      console.log(sortByFirstNameArr)
     },
-    sortByLastName: (state, action) => {
-
-    },
-    sortByStartDate: (state, action) => {
-
-    },
-    sortByBirthDate: (state, action) => {
-
-    },
-    sortByStreet: (state, action) => {
-
-    },
-    sortByCity: (state, action) => {
-
-    },
-    sortByDepartment: (state, action) => {
-
-    },
-    sortByState: (state, action) => {
-
-    },
-    sortByZipCode: (state, action) => {
-
-    },
-
+    sortByLastName: (state, action) => {},
+    sortByStartDate: (state, action) => {},
+    sortByBirthDate: (state, action) => {},
+    sortByStreet: (state, action) => {},
+    sortByCity: (state, action) => {},
+    sortByDepartment: (state, action) => {},
+    sortByState: (state, action) => {},
+    sortByZipCode: (state, action) => {},
   },
 });
 
@@ -259,5 +238,25 @@ export const {
   sortByCity,
   sortByState,
   sortByZipCode,
-  sortByStreet
+  sortByStreet,
 } = employeeSlice.actions;
+
+function sortAsc(arr, field) {
+  return arr.sort(function (a, b) {
+    if (a[field] > b[field]) return 1;
+
+    if (b[field] > a[field]) return -1;
+
+    return 0;
+  });
+}
+
+function sortDesc(arr, field) {
+  return arr.sort(function (a, b) {
+    if (a[field] > b[field]) return -1;
+
+    if (b[field] > a[field]) return 1;
+
+    return 0;
+  });
+}
