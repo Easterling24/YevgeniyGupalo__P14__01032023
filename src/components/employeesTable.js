@@ -17,15 +17,23 @@ export default function EmployeesTable() {
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
-            <th className="table_head" scope="col"><span>First Name</span> <div className="icon-container"><FontAwesomeIcon icon={faSortDown}/></div></th>
-            <th scope="col">Last Name</th>
+            <th  scope="col"><span>First Name</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            <th  scope="col"><span>Last Name</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            <th  scope="col"><span>Birth Date</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            <th  scope="col"><span>Street</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            <th  scope="col"><span>Start Date</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            <th  scope="col"><span>City</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            <th  scope="col"><span>State</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            <th  scope="col"><span>Zip Code</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            <th  scope="col"><span>Department</span> <div className="icon-container"> <button><FontAwesomeIcon icon={faSortUp}/></button> <button><FontAwesomeIcon icon={faSortDown}/></button> </div></th>
+            {/* <th scope="col">Last Name</th>
             <th scope="col">Start Date</th>
             <th scope="col">Department</th>
             <th scope="col">Date of Birth</th>
             <th scope="col">Street</th>
             <th scope="col">City</th>
             <th scope="col">State</th>
-            <th scope="col">Zip Code</th>
+            <th scope="col">Zip Code</th> */}
           </tr>
         </thead>
 
@@ -36,13 +44,13 @@ export default function EmployeesTable() {
                 <tr key={employee.id}>
                   <td>{ employee.firstName}</td>
                   <td>{employee.lastName}</td>
-                  <td>{format( new Date(employee.startDate), "dd/MM/yyyy")}</td>
-                  <td>{employee.department}</td>
-                  <td>{ format( new Date(employee.birthDate), "dd/MM/yyyy")}</td>
+                  <td>{format( new Date(employee.birthDate), "dd/MM/yyyy")}</td>
                   <td>{employee.street}</td>
+                  <td>{ format( new Date(employee.startDate), "dd/MM/yyyy")}</td>
                   <td>{employee.city}</td>
                   <td>{employee.state}</td>
                   <td>{employee.zipCode}</td>
+                  <td>{employee.department}</td>
                 </tr>
               );
             })

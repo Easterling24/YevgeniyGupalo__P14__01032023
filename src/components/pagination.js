@@ -25,10 +25,13 @@ export default function Pagination() {
     dispatch(loadExactPage(page));
   };
 
+  console.log(filteredEmployees.length)
+
   return (
     <section className="pagination-container">
       <div className="pagination-container pagination-container--left">
-        {filteredEmployees ? (  <div><span>{`Showing 1 to ${entries} of ${employees.length} entries`}</span></div>): (  <div><span>{`Showing 0 to 0 of 0 entries`}</span></div>)}
+        {/* {filteredEmployees.length ? (  <div><span>{`Showing 1 to ${entries} of ${employees.length} entries`}</span></div>): (  <div><span>{`Showing 0 to 0 of 0 entries`}</span></div>)} */}
+        {filteredEmployees.length === 0 ? (  <div><span>{`Showing 0 to 0 of 0 entries`}</span></div>): (  <div><span>{`Showing 1 to ${entries} of ${employees.length} entries`}</span></div>)}
       
       </div>
 

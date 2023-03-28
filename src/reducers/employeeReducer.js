@@ -37,12 +37,6 @@ const employeeSlice = createSlice({
       const newEmployee = action.payload;
 
       state.employees = [...state.employees, newEmployee]
-
-
-
-
-
-
       // state.employees = [...state.employees, newEmployee]
 
       // localStorage.setItem('employees', JSON.stringify(state.employees))
@@ -216,6 +210,35 @@ const employeeSlice = createSlice({
         state.currentPage = 1;
       }
     },
+
+    sortByFirstName: (state, action) => {
+
+    },
+    sortByLastName: (state, action) => {
+
+    },
+    sortByStartDate: (state, action) => {
+
+    },
+    sortByBirthDate: (state, action) => {
+
+    },
+    sortByStreet: (state, action) => {
+
+    },
+    sortByCity: (state, action) => {
+
+    },
+    sortByDepartment: (state, action) => {
+
+    },
+    sortByState: (state, action) => {
+
+    },
+    sortByZipCode: (state, action) => {
+
+    },
+
   },
 });
 
@@ -229,4 +252,12 @@ export const {
   loadExactPage,
   changeEntry,
   getLocalStorage,
+  sortByFirstName,
+  sortByLastName,
+  sortByBirthDate,
+  sortByStartDate,
+  sortByCity,
+  sortByState,
+  sortByZipCode,
+  sortByStreet
 } = employeeSlice.actions;
