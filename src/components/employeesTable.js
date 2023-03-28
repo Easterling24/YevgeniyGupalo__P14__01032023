@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSortDown, faSortUp } from "@fortawesome/free-solid-svg-icons";
-import { sortByFirstName } from "../reducers/employeeReducer";
+import { sortByFirstName, loadEmployees } from "../reducers/employeeReducer";
 import { useDispatch } from "react-redux";
 import "../styles/dataTable.scss";
 
@@ -13,19 +13,61 @@ export default function EmployeesTable() {
   const dispatch = useDispatch()
 
 
-  const sortOnClick = (e) => {
+  const sortByFirstName = (e) => {
     e.stopPropagation()
-
     const value = e.target.value
-
     let direction = value.endsWith('asc') ? "asc" : "desc";
-
     dispatch(sortByFirstName({direction}))
-
-
-
-    
-
+    dispatch(loadEmployees())
+  }
+  const sortByLasttName = (e) => {
+    e.stopPropagation()
+    const value = e.target.value
+    let direction = value.endsWith('asc') ? "asc" : "desc";
+    dispatch(sortByFirstName({direction}))
+    dispatch(loadEmployees())
+  }
+  const sortByBirthDate = (e) => {
+    e.stopPropagation()
+    const value = e.target.value
+    let direction = value.endsWith('asc') ? "asc" : "desc";
+    dispatch(sortByFirstName({direction}))
+    dispatch(loadEmployees())
+  }
+  const sortByStarthDate = (e) => {
+    e.stopPropagation()
+    const value = e.target.value
+    let direction = value.endsWith('asc') ? "asc" : "desc";
+    dispatch(sortByFirstName({direction}))
+    dispatch(loadEmployees())
+  }
+  const sortByStreet = (e) => {
+    e.stopPropagation()
+    const value = e.target.value
+    let direction = value.endsWith('asc') ? "asc" : "desc";
+    dispatch(sortByFirstName({direction}))
+    dispatch(loadEmployees())
+  }
+  const sortByCity = (e) => {
+    e.stopPropagation()
+    const value = e.target.value
+    let direction = value.endsWith('asc') ? "asc" : "desc";
+    dispatch(sortByFirstName({direction}))
+    dispatch(loadEmployees())
+  }
+  const sortByZipCode = (e) => {
+    e.stopPropagation()
+    const value = e.target.value
+    let direction = value.endsWith('asc') ? "asc" : "desc";
+    dispatch(sortByFirstName({direction}))
+    dispatch(loadEmployees())
+  }
+  const sortByDepartment = (e) => {
+    e.stopPropagation()
+    const value = e.target.value
+    let direction = value.endsWith('asc') ? "asc" : "desc";
+    dispatch(sortByFirstName({direction}))
+    dispatch(loadEmployees())
   }
 
   return (
@@ -37,10 +79,10 @@ export default function EmployeesTable() {
               <span>First Name</span>{" "}
               <div className="icon-container">
                 {" "}
-                <button onClick={(e) => sortOnClick(e)} value="alphabet_asc">
+                <button onClick={(e) => sortByFirstName(e)} value="alphabet_asc">
                   <FontAwesomeIcon icon={faSortUp} />
                 </button>{" "}
-                <button value="'alphabet_desc">
+                <button  onClick={(e) => sortByFirstName(e)} value="alphabet_desc">
                   <FontAwesomeIcon icon={faSortDown} />
                 </button>{" "}
               </div>

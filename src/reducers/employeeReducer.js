@@ -207,10 +207,21 @@ const employeeSlice = createSlice({
     },
 
     sortByFirstName: (state, action) => {
-      const sortByFirstNameArr = action.payload.direction
-      console.log(sortByFirstNameArr)
+      const sortByFirstNameArr =
+        action.payload.direction === "asc"
+          ? sortAsc(state.employees, "firstName")
+          : sortDesc(state.employees, "firstName");
+      state.employees = sortByFirstNameArr;
+      state.filteredEmployees = state.employees;
     },
-    sortByLastName: (state, action) => {},
+    sortByLastName: (state, action) => {
+      const sortByFirstNameArr =
+        action.payload.direction === "asc"
+          ? sortAsc(state.employees, "lastName")
+          : sortDesc(state.employees, "lasttName");
+      state.employees = sortByFirstNameArr;
+      state.filteredEmployees = state.employees;
+    },
     sortByStartDate: (state, action) => {},
     sortByBirthDate: (state, action) => {},
     sortByStreet: (state, action) => {},
