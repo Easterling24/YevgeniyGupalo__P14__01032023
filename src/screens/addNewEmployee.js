@@ -81,6 +81,7 @@ export default function AddNewEmployee() {
     setValidZipCode(NON_EMPY_STRING.test(zipCode));
     setValidState(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(state));
     setValidDepartment(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(department));
+
   }, [
     firstName,
     validFirstName,
@@ -134,8 +135,8 @@ export default function AddNewEmployee() {
         id: employees.length + 1,
         firstName,
         lastName,
-        birthDate: format(new Date(birthDate), "dd/MM/yyyy"),
-        startDate: format(new Date(startDate), "dd/MM/yyyy"),
+        birthDate: new Date(birthDate).toISOString(),
+        startDate: new Date(startDate).toISOString(),
         street,
         city,
         state,

@@ -9,7 +9,7 @@ import "../styles/pagination.scss";
 
 export default function Pagination() {
   const dispatch = useDispatch();
-  const { totalPages, currentPage, employees, entries, filteredEmployees } = useSelector((state) => state.employee);
+  const { totalPages, currentPage, entries, filteredEmployees, currentFilteredEmployees } = useSelector((state) => state.employee);
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const lastPage = pages.pop();
 
@@ -31,7 +31,7 @@ export default function Pagination() {
     <section className="pagination-container">
       <div className="pagination-container pagination-container--left">
         {/* {filteredEmployees.length ? (  <div><span>{`Showing 1 to ${entries} of ${employees.length} entries`}</span></div>): (  <div><span>{`Showing 0 to 0 of 0 entries`}</span></div>)} */}
-        {filteredEmployees.length === 0 ? (  <div><span>{`Showing 0 to 0 of 0 entries`}</span></div>): (  <div><span>{`Showing 1 to ${entries} of ${employees.length} entries`}</span></div>)}
+        {filteredEmployees.length === 0 ? (  <div><span>{`Showing 0 to 0 of 0 entries`}</span></div>): (  <div><span>{`Showing 1 to ${entries} of ${currentFilteredEmployees.length} entries`}</span></div>)}
       
       </div>
 

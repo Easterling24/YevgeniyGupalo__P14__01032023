@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, get } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { employeeReducer } from "./reducers/employeeReducer";
 import { persistReducer } from "redux-persist";
