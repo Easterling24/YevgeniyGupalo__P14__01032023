@@ -14,14 +14,14 @@ const employeeSlice = createSlice({
     currentPage: 1,
     filterMode: false,
     paginatedEmployees: [],
-    filteredListTotal : [],
+    filteredListTotal: [],
   },
   reducers: {
     loadEmployees: (state) => {
       state.currentPage = 1;
       state.filterMode = false;
       state.appliedFilters = [];
-      state.currentFilteredEmployees = state.employees
+      state.currentFilteredEmployees = state.employees;
       state.filteredEmployees = state.employees;
       let entries = state.entries;
       state.currentCount = entries;
@@ -34,11 +34,8 @@ const employeeSlice = createSlice({
     addNewEmployee: (state, action) => {
       const newEmployee = action.payload;
 
-      console.log(newEmployee)
-
       let newEmployees = [...state.employees, newEmployee];
-      state.employees = newEmployees
-
+      state.employees = newEmployees;
     },
 
     filterEmployee: (state, action) => {
@@ -55,46 +52,34 @@ const employeeSlice = createSlice({
           employee.street.toLowerCase().includes(value.toLowerCase())
       );
 
-      console.log(filteredValues)
-
       const actionType = action.type;
 
       if (value) {
-        state.filterMode = true;
-        state.currentPage = 1
         let index = appliedFilters.indexOf(actionType);
-
         if (index === -1) appliedFilters.push(actionType);
-        state.filteredEmployees = filteredValues;
-        state.filteredListTotal = state.filteredEmployees;
-
-        let employees = state.filteredEmployees;
+        state.filteredListTotal = filteredValues;
         let entries = state.entries;
-        let totalPages = Math.ceil(employees.length / entries);
+        let totalPages = Math.ceil(state.filteredListTotal.length / entries);
         let currentEmployees = state.filteredListTotal.slice(0, entries);
         state.filteredEmployees = currentEmployees;
         state.totalPages = totalPages;
         state.currentPage = 1;
-        state.currentFilteredEmployees = state.filteredListTotal
+        state.currentCount = 10;
       } else {
-
         let index = appliedFilters.indexOf(actionType);
         appliedFilters.splice(index, 1);
         if (appliedFilters.length === 0) {
-          state.filterMode = false;
-          state.filteredListTotal = []
+          state.filteredListTotal = [];
           state.filteredEmployees = state.employees;
-          state.currentFilteredEmployees = state.filteredEmployees
-   
-          let employees = state.filteredEmployees;
+          state.currentPage = 1;
+          state.currentCount = 10;
 
+          let employees = state.filteredEmployees;
           let entries = state.entries;
           let totalPages = Math.ceil(employees.length / entries);
           state.totalPages = totalPages;
           let currentEmployees = employees.slice(0, entries);
           state.filteredEmployees = currentEmployees;
-        
-       
         }
       }
     },
@@ -105,18 +90,13 @@ const employeeSlice = createSlice({
       state.currentPage += page;
       let nextEmployees;
 
-      if (state.filterMode && state.filteredListTotal) {
-
-        console.log("filtered mode")
-
-
+      if (state.filteredListTotal.length) {
         if (page === 1) {
           let upperCount = state.currentCount + entries;
           let lowerCount = state.currentCount;
           state.currentCount += entries;
 
-          state.filteredEmployees = state.filteredListTotal
-          nextEmployees = state.filteredEmployees.slice(lowerCount, upperCount);
+          let nextEmployees = state.employees.slice(lowerCount, upperCount);
           state.filteredEmployees = nextEmployees;
         }
 
@@ -125,8 +105,7 @@ const employeeSlice = createSlice({
           let lowerCount = state.currentCount - entries;
           state.currentCount = lowerCount;
 
-
-          nextEmployees = state.filteredListTotal.slice(
+          nextEmployees = state.employees.slice(
             lowerCount - entries,
             upperCount - entries
           );
@@ -134,7 +113,7 @@ const employeeSlice = createSlice({
           state.filteredEmployees = nextEmployees;
         }
       } else {
-          if (page === 1) {
+        if (page === 1) {
           let upperCount = state.currentCount + entries;
           let lowerCount = state.currentCount;
 
@@ -168,36 +147,18 @@ const employeeSlice = createSlice({
       const exactPage = action.payload;
       let entries = state.entries;
 
-      if (state.filterMode && state.filteredListTotal.length) {
+      let upperCountExact = entries * exactPage;
+      let lowerCountExact = upperCountExact - entries;
 
-        
-        let upperCountExact = entries * exactPage;
-        let lowerCountExact = upperCountExact - entries;
+      let exactEmployeeSet = state.employees.slice(
+        lowerCountExact,
+        upperCountExact
+      );
+      state.currentPage = exactPage;
+      state.currentCount = upperCountExact;
 
-        state.filteredEmployees = state.filteredListTotal;
-
-        let exactEmployeeSet = state.filteredEmployees.slice(
-          lowerCountExact,
-          upperCountExact
-        );
-        state.currentPage = exactPage;
-        state.currentCount = upperCountExact;
-        state.filteredEmployees = exactEmployeeSet;
-      } else {
-        let upperCountExact = entries * exactPage;
-        let lowerCountExact = upperCountExact - entries;
-
-        state.filteredEmployees = state.employees;
-
-        let exactEmployeeSet = state.filteredEmployees.slice(
-          lowerCountExact,
-          upperCountExact
-        );
-        state.currentPage = exactPage;
-        state.currentCount = upperCountExact;
-
-        state.filteredEmployees = exactEmployeeSet;
-      }
+      state.filteredEmployees = exactEmployeeSet;
+  
     },
 
     changeEntry: (state, action) => {
@@ -225,7 +186,6 @@ const employeeSlice = createSlice({
       }
     },
 
-
     // Sorting reducers start
     // ======================================================================================
     sortByFirstName: (state, action) => {
@@ -246,21 +206,29 @@ const employeeSlice = createSlice({
     },
     sortByStartDate: (state, action) => {
       const sortByFirstNameArr =
-      action.payload.direction === "asc"
-        ? sortDateAsc(state.employees, "startDate")
-        : sortDateDesc(state.employees, "startDate");
-    state.employees = sortByFirstNameArr;
-    state.filteredEmployees = state.employees;
+        action.payload.direction === "asc"
+          ? sortDateAsc(state.employees, "startDate")
+          : sortDateDesc(state.employees, "startDate");
+      state.employees = sortByFirstNameArr;
+      state.filteredEmployees = state.employees;
     },
     sortByBirthDate: (state, action) => {
       const sortByFirstNameArr =
-      action.payload.direction === "asc"
-        ? sortDateAsc(state.employees, "birthDate")
-        : sortDateDesc(state.employees, "birthDate");
-    state.employees = sortByFirstNameArr;
-    state.filteredEmployees = state.employees;
+        action.payload.direction === "asc"
+          ? sortDateAsc(state.employees, "birthDate")
+          : sortDateDesc(state.employees, "birthDate");
+      state.employees = sortByFirstNameArr;
+      state.filteredEmployees = state.employees;
     },
-    sortByStreet: (state, action) => {},
+    sortByStreet: (state, action) => {
+      const sortByFirstNameArr =
+        action.payload.direction === "asc"
+          ? sortAddressAsc(state.employees, "street")
+          : sortAddressDesc(state.employees, "street");
+
+      state.employees = sortByFirstNameArr;
+      state.filteredEmployees = state.employees;
+    },
     sortByCity: (state, action) => {
       const sortByFirstNameArr =
         action.payload.direction === "asc"
@@ -297,7 +265,7 @@ const employeeSlice = createSlice({
 });
 
 // Sorting reducers end
-    // ======================================================================================
+// ======================================================================================
 export const employeeReducer = employeeSlice.reducer;
 
 export const {
@@ -375,6 +343,30 @@ function sortDateDesc(arr, field) {
     if (new Date(a[field]) > new Date(b[field])) return 1;
 
     if (new Date(b[field]) > new Date(a[field])) return -1;
+
+    return 0;
+  });
+}
+
+function sortAddressAsc(arr, field) {
+  return arr.sort(function (a, b) {
+    if (a[field].replace(/[0-9]/g, "") > b[field].replace(/[0-9]/g, ""))
+      return 1;
+
+    if (b[field].replace(/[0-9]/g, "") > a[field].replace(/[0-9]/g, ""))
+      return -1;
+
+    return 0;
+  });
+}
+
+function sortAddressDesc(arr, field) {
+  return arr.sort(function (a, b) {
+    if (a[field].replace(/[0-9]/g, "") > b[field].replace(/[0-9]/g, ""))
+      return -1;
+
+    if (b[field].replace(/[0-9]/g, "") > a[field].replace(/[0-9]/g, ""))
+      return 1;
 
     return 0;
   });

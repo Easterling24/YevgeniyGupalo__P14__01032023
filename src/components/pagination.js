@@ -25,7 +25,7 @@ export default function Pagination() {
     dispatch(loadExactPage(page));
   };
 
-  console.log(filteredEmployees.length)
+
 
   return (
     <section className="pagination-container">

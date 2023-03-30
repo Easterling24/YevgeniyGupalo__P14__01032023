@@ -22,44 +22,40 @@
     cursor: pointer;
   }
 
-  button{
+  button {
     background-color: transparent;
     outline: none;
     border: none;
     cursor: pointer;
     font-size: 17px;
 
-    & > svg{
-        font-size: 35px;
+    & > svg {
+      font-size: 35px;
     }
   }
 
-  &--active{
+  &--active {
     color: #ff9b24;
     font-weight: bold;
     transition-duration: 300ms;
     transform: scale(1.2);
   }
-  &--item{
-    color: #1c1b22;
+  &--item {
+    color: #fff;
     font-weight: bold;
     transition-duration: 300ms;
     transform: scale(1);
   }
 
   &--previous {
-
   }
   &--next {
-    
   }
 
-  &--left{
+  &--left {
     display: flex;
     align-items: center;
     color: #f08200;
     font-weight: bold;
   }
-  
-
 }
