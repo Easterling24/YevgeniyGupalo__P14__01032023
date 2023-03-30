@@ -7,7 +7,7 @@ The table component is entirely written on Redux logic.
 
 
 ## Basic instructions 
-* `git clone` https://github.com/Easterling24/YevgeniyGupalo__P12__100422.git
+* `git clone` https://github.com/Easterling24/YevgeniyGupalo__P14__01032023.git
 * `npm install` command for required dependencies
 * `npm start` to start off the frontend
 
