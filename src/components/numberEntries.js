@@ -11,11 +11,10 @@ export default function NumberOfEntries() {
 
   const handleDropdown = () => {
     if (menuOpen) {
-      console.log("closed");
-      setMenuOpen(false);
+      setMenuOpen(false)
     } else {
       setMenuOpen(true);
-      console.log("open");
+
     }
   };
 

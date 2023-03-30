@@ -217,7 +217,6 @@ export default function EmployeesTable() {
             filteredEmployees.map((employee) => {
               return (
                
-
                 <tr key={employee.id}>
                   <td>{employee.firstName}</td>
                   <td>{employee.lastName}</td>

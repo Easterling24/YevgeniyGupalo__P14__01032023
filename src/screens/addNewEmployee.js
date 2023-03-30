@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import ConfirmationModal from "../components/confirmationModal";
+import DropDown from "../components/dropDown";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addNewEmployee, loadEmployees } from "../reducers/employeeReducer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from "react-datepicker";
-import { format } from "date-fns";
 import "react-day-picker/dist/style.css";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -15,10 +15,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../styles/addNewEmployee.scss";
 import states from "../data/states.json";
+const stateNames = states.map((elt) => elt.name);
+const departments = [
+  "Sales",
+  "Marketing",
+  "Engineering",
+  "Human Resources",
+  "Legal",
+];
 
 const EMPLOYEE_REGEX = /^[A-z]{3,23}(?!\s*$).+$/;
 const EMPLOYEE_NON_EMPTY_STRING_REGEX = /^(?!\s*$).+/;
-const NON_EMPY_STRING = /^(?!\s*$).+/
+const NON_EMPY_STRING = /^(?!\s*$).+/;
 
 export default function AddNewEmployee() {
   const userRef = useRef();
@@ -36,11 +44,11 @@ export default function AddNewEmployee() {
 
   const [birthDate, setBirthDate] = useState("");
   const [validDob, setValidDob] = useState(false);
-  const [dobfocus, setDobFocus] = useState(false);
+  // const [dobfocus, setDobFocus] = useState(false);
 
   const [startDate, setStartDate] = useState("");
   const [validDate, setValidDate] = useState(false);
-  const [dateFocus, setDateFocus] = useState(false);
+  // const [dateFocus, setDateFocus] = useState(false);
 
   const [street, setStreet] = useState("");
   const [validStreet, setValidStreet] = useState(false);
@@ -48,19 +56,19 @@ export default function AddNewEmployee() {
 
   const [city, setCity] = useState("");
   const [validCity, setValidCity] = useState(false);
-  const [cityFocus, setCityFocus] = useState(false);
+  // const [cityFocus, setCityFocus] = useState(false);
 
   const [zipCode, setZipCode] = useState("");
   const [validZipCode, setValidZipCode] = useState(false);
-  const [zipCodeFocus, setZipCodeFocus] = useState(false);
+  // const [zipCodeFocus, setZipCodeFocus] = useState(false);
 
   const [state, setState] = useState("");
   const [validState, setValidState] = useState(false);
-  const [stateFocus, setStateFocus] = useState(false);
+  // const [stateFocus, setStateFocus] = useState(false);
 
   const [department, setDepartment] = useState("");
   const [validDepartment, setValidDepartment] = useState(false);
-  const [departmentFocus, setDepartmentFocus] = useState(false);
+  // const [departmentFocus, setDepartmentFocus] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(true);
@@ -81,7 +89,6 @@ export default function AddNewEmployee() {
     setValidZipCode(NON_EMPY_STRING.test(zipCode));
     setValidState(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(state));
     setValidDepartment(EMPLOYEE_NON_EMPTY_STRING_REGEX.test(department));
-
   }, [
     firstName,
     validFirstName,
@@ -179,6 +186,7 @@ export default function AddNewEmployee() {
 
         {employees && (
           <Link
+            className="view-employees"
             style={
               employees.length ? { display: "inline" } : { display: "none" }
             }
@@ -323,7 +331,6 @@ export default function AddNewEmployee() {
                 scrollableYearDropdown
                 dateFormat="MM/dd/yyyy"
               />
-             
             </div>
           </div>
 
@@ -396,7 +403,9 @@ export default function AddNewEmployee() {
                   />
                 </div>
 
-                <select
+                <DropDown value={state} setValue={setState} arr={stateNames} />
+
+                {/* <select
                   name="state"
                   id="state"
                   value={state}
@@ -405,7 +414,7 @@ export default function AddNewEmployee() {
                   {states.map((state, key) => {
                     return <option key={key}>{state.name}</option>;
                   })}
-                </select>
+                </select> */}
               </div>
               <div className="input-container">
                 <div className="label-box">
@@ -439,18 +448,11 @@ export default function AddNewEmployee() {
                   />
                 </div>
 
-                <select
-                  name="department"
-                  id="department"
+                <DropDown
                   value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
-                >
-                  <option>Sales</option>
-                  <option>Marketing</option>
-                  <option>Engineering</option>
-                  <option>Human Resources</option>
-                  <option>Legal</option>
-                </select>
+                  setValue={setDepartment}
+                  arr={departments}
+                />
               </div>
             </div>
           </div>
