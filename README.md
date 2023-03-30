@@ -5,6 +5,11 @@ The first page simply provides a new employee fill out form and validation.
 
 The table component is entirely written on Redux logic.
 
+## NPM Package
+
+The npm package for the employee list using redux could be find here: https://www.npmjs.com/package/redux-table-v1
+
+
 
 ## Basic instructions 
 * `git clone` https://github.com/Easterling24/YevgeniyGupalo__P14__01032023.git
