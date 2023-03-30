@@ -24,7 +24,6 @@ export default function EmployeesTable() {
   const { filteredEmployees } = useSelector((state) => state.employee);
   const dispatch = useDispatch();
 
-
   // Sorting functions with dispatch start
 
   // ======================================================
@@ -80,7 +79,6 @@ export default function EmployeesTable() {
     dispatch(loadEmployees());
   };
 
-
   const sortStreet = (e) => {
     const value = e.target.value;
 
@@ -89,13 +87,11 @@ export default function EmployeesTable() {
     dispatch(loadEmployees());
   };
 
-
   // Sorting functions with dispatch end
   // ======================================================
 
   return (
     <section className="table-wrapper">
-      
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
@@ -139,7 +135,7 @@ export default function EmployeesTable() {
               <span>Street</span>{" "}
               <div className="icon-container">
                 {" "}
-                <button onClick={(e) => sortStreet(e)} value="alphabet_asc" >
+                <button onClick={(e) => sortStreet(e)} value="alphabet_asc">
                   <FontAwesomeIcon icon={faSortUp} />
                 </button>{" "}
                 <button onClick={(e) => sortStreet(e)} value="alphabet_desc">
@@ -213,10 +209,9 @@ export default function EmployeesTable() {
           </tr>
         </thead>
         <tbody>
-          {filteredEmployees ? (
+          {filteredEmployees.length ? (
             filteredEmployees.map((employee) => {
               return (
-               
                 <tr key={employee.id}>
                   <td>{employee.firstName}</td>
                   <td>{employee.lastName}</td>
@@ -228,11 +223,10 @@ export default function EmployeesTable() {
                   <td>{employee.zipCode}</td>
                   <td>{employee.department}</td>
                 </tr>
-
               );
             })
           ) : (
-            <tr>Nothing here</tr>
+            <tr style={{width:"100%", textAlign:"center"}}>Nothing here</tr>
           )}
         </tbody>
       </table>

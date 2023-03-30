@@ -58,7 +58,7 @@ export default function SearchBar() {
         <input
           type="text"
           onChange={(e) => filterEmployees(e.target.value)}
-          placeholder="Fro example, enter a a first name or city.."
+          placeholder="Fro instance, enter a first name or city.."
           className={
             searchInput
               ? "employee-list-wrapper__input employee-list-wrapper__input--bar-visible"
